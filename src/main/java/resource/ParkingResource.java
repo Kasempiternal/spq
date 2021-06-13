@@ -1,6 +1,5 @@
 package resource;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -18,7 +17,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-
 import jdo.Coche;
 
 @Path("parking")
@@ -34,15 +32,13 @@ public class ParkingResource {
 		String color = coche.getColor();
 		String nombre = coche.getNombre();
 		int parking = coche.getParking();
-		
-		
-		
+
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			Coche c = new Coche(matricula,marca,color,nombre,parking);
+			Coche c = new Coche(matricula, marca, color, nombre, parking);
 			pm.makePersistent(c);
 			tx.commit();
 		} finally {
@@ -52,17 +48,18 @@ public class ParkingResource {
 			pm.close();
 		}
 	}
-	
+
 	@POST
 	@Path("liberar")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public static void Liberar(String matricula) {
-	
+
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		PersistenceManager pm = pmf.getPersistenceManager();
 
 		try (@SuppressWarnings("unchecked")
-		Query<Coche> q = pm.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");) {
+		Query<Coche> q = pm
+				.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");) {
 			List<Coche> user = q.executeList();
 			pm.deletePersistentAll(user);
 		} catch (Exception e) {
@@ -71,8 +68,7 @@ public class ParkingResource {
 			pm.close();
 		}
 	}
-	
-	
+
 	@GET
 	@Path("buscar")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -82,13 +78,11 @@ public class ParkingResource {
 		ArrayList<Integer> parkings = new ArrayList<>();
 
 		try {
-			Query<Coche> q = pm
-					.newQuery("SELECT FROM " + Coche.class.getName() );
+			Query<Coche> q = pm.newQuery("SELECT FROM " + Coche.class.getName());
 
 			List<Coche> listaParking = q.executeList();
-			System.out.println("Buscado parking");
 			for (Coche coche : listaParking) {
-				
+
 				parkings.add(coche.getParking());
 
 			}
@@ -108,7 +102,8 @@ public class ParkingResource {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		boolean respuesta = true;
 		try {
-			Query<Coche> q = pm.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");
+			Query<Coche> q = pm
+					.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");
 
 			List<Coche> matriculas = q.executeList();
 
@@ -124,7 +119,5 @@ public class ParkingResource {
 		}
 		return respuesta;
 	}
-	
-
 
 }

@@ -94,22 +94,22 @@ public class ParkingResourceTest {
 	}
 	
 	@Test
-	@PerfTest(invocations = 100, threads = 40)
 	public void testLibera() {
 		WebTarget parkingTarget = appTarget.path("parking");
+	
 		WebTarget liberarTarget = parkingTarget.path("liberar");
-		
+		WebTarget reservarTarget = parkingTarget.path("reservar");
+	
 		Coche coche = new Coche("7777EEE", "Hyundai", "Azul", "Gorka", 5);
 
-		WebTarget reservarTarget = parkingTarget.path("reservar");
 		reservarTarget.request().post(Entity.entity(coche, MediaType.APPLICATION_JSON));
-		
 		
 		liberarTarget.request().post(Entity.entity("7777EEE", MediaType.APPLICATION_JSON));
 		
 
 		boolean libre = ParkingResource.verMatriculaUsada("7777EEE");
 
+		System.out.println(libre + " booolean ");
 		assertEquals(true, libre);
 
 	}
