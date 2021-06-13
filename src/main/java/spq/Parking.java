@@ -24,7 +24,10 @@ import java.awt.event.ActionEvent;
 
 public class Parking extends JFrame {
 	/**
+	 * Clase Parking para un hacer las reservas y mirar que plaza esta libre
 	 * 
+	 * @author Izotz
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -260,13 +263,14 @@ public class Parking extends JFrame {
 		btnNewButton_12.setBounds(600, 131, 124, 49);
 		getContentPane().add(btnNewButton_12);
 
-		
 		buscar();
-		
-
 
 	}
 
+	/**
+	 * Funcion buscar para ver que coches hay ya en la base de datos
+	 *
+	 */
 	public void buscar() {
 		WebTarget buscarTarget = parkingTarget.path("buscar");
 		GenericType<List<Integer>> genericType = new GenericType<List<Integer>>() {
@@ -336,10 +340,16 @@ public class Parking extends JFrame {
 				btnNewButton_12.setBorder(new LineBorder(Color.RED));
 				btnNewButton_12.setBackground(Color.RED);
 
-			}}
-		
+			}
+		}
+
 	}
 
+	/**
+	 * Reserva la plaza seleccionada
+	 * 
+	 * @return Devuelve un boolean que se utiliza para correr los teses
+	 */
 	public boolean Reservar(Coche coche) {
 		WebTarget reservarTarget = parkingTarget.path("reservar");
 		reservarTarget.request().post(Entity.entity(coche, MediaType.APPLICATION_JSON));
