@@ -56,10 +56,10 @@ public class ParkingResource {
 
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		PersistenceManager pm = pmf.getPersistenceManager();
-
-		try (@SuppressWarnings("unchecked")
 		Query<Coche> q = pm
-				.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");) {
+				.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");
+		try 
+		 {
 			List<Coche> user = q.executeList();
 			pm.deletePersistentAll(user);
 		} catch (Exception e) {
@@ -76,9 +76,9 @@ public class ParkingResource {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		PersistenceManager pm = pmf.getPersistenceManager();
 		ArrayList<Integer> parkings = new ArrayList<>();
-
+		Query<Coche> q = pm.newQuery("SELECT FROM " + Coche.class.getName());
 		try {
-			Query<Coche> q = pm.newQuery("SELECT FROM " + Coche.class.getName());
+		
 
 			List<Coche> listaParking = q.executeList();
 			for (Coche coche : listaParking) {
@@ -101,9 +101,11 @@ public class ParkingResource {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		PersistenceManager pm = pmf.getPersistenceManager();
 		boolean respuesta = true;
+		
+		Query<Coche> q = pm
+				.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");
 		try {
-			Query<Coche> q = pm
-					.newQuery("SELECT FROM " + Coche.class.getName() + " WHERE matricula== '" + matricula + "'");
+		
 
 			List<Coche> matriculas = q.executeList();
 

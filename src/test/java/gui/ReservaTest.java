@@ -20,6 +20,7 @@ import categories.GuiTest;
 import jdo.Coche;
 import resource.ParkingResource;
 import server.Server;
+import spq.Parking;
 
 @Category(GuiTest.class)
 public class ReservaTest {
@@ -56,6 +57,14 @@ public class ReservaTest {
 		boolean libre = ParkingResource.verMatriculaUsada(coche.getMatricula());
 		assertEquals(false, libre);
 	}
+	
+	@Test
+	public void testBuscar() {
+		Parking p = new Parking();
+		Coche coche2 = new Coche("2222EEE", "Hyunedai", "Azule", "Gorkea", 2);
+		assertEquals(true, p.Reservar(coche2));
+	}
+	
 	
 
 }

@@ -21,6 +21,7 @@ import categories.GuiTest;
 import jdo.Coche;
 import resource.ParkingResource;
 import server.Server;
+import spq.Ventanaprincipal;
 
 @Category(GuiTest.class)
 public class VentanaPrincipalTest {
@@ -82,5 +83,6 @@ public class VentanaPrincipalTest {
 		assertEquals("Paco", coche.getNombre());
 
 	}
+	
 
 }

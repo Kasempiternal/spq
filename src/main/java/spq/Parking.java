@@ -260,6 +260,14 @@ public class Parking extends JFrame {
 		btnNewButton_12.setBounds(600, 131, 124, 49);
 		getContentPane().add(btnNewButton_12);
 
+		
+		buscar();
+		
+
+
+	}
+
+	public void buscar() {
 		WebTarget buscarTarget = parkingTarget.path("buscar");
 		GenericType<List<Integer>> genericType = new GenericType<List<Integer>>() {
 		};
@@ -328,20 +336,18 @@ public class Parking extends JFrame {
 				btnNewButton_12.setBorder(new LineBorder(Color.RED));
 				btnNewButton_12.setBackground(Color.RED);
 
-			}
-
-		}
-
+			}}
+		
 	}
 
-	public void Reservar(Coche coche) {
+	public boolean Reservar(Coche coche) {
 		WebTarget reservarTarget = parkingTarget.path("reservar");
 		reservarTarget.request().post(Entity.entity(coche, MediaType.APPLICATION_JSON));
 		JOptionPane.showMessageDialog(null, "Plaza Reservada Con Exito");
 		Ventanaprincipal vp = new Ventanaprincipal();
 		vp.setVisible(true);
 		dispose();
-
+		return true;
 	}
 
 }
