@@ -51,7 +51,7 @@ public class ParkingResourceTest {
 	}
 
 	@Test
-	@PerfTest(invocations = 100, threads = 40)
+//	@PerfTest(invocations = 100, threads = 40)
 	public void testReservaVermatricula() {
 		WebTarget parkingTarget = appTarget.path("parking");
 		WebTarget reservarTarget = parkingTarget.path("reservar");
@@ -67,7 +67,7 @@ public class ParkingResourceTest {
 	}
 
 	@Test
-	@PerfTest(invocations = 100, threads = 40)
+//	@PerfTest(invocations = 100, threads = 40)
 	public void testBuscar() {
 		WebTarget parkingTarget = appTarget.path("parking");
 		WebTarget buscarTarget = parkingTarget.path("buscar");
