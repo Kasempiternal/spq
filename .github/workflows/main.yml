@@ -61,12 +61,16 @@ jobs:
           mvn --batch-mode --update-snapshots datanucleus:schema-create
       - name: Test Unitarios
         run: mvn --batch-mode --update-snapshots test 
-   
+      - name: Test Integracion
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -uroot -proot < src/main/resources/database.sql
+          mvn --batch-mode --update-snapshots test -P integration
       - name: Test Ventanas
         run: |
           sudo /etc/init.d/mysql start
           mysql -uroot -proot < src/main/resources/database.sql
-          mvn --batch-mode --update-snapshots verify -P gui  
+          mvn --batch-mode --update-snapshots test -P gui  
         env:
           DISPLAY: ':99'
       - name: Install doxygen
