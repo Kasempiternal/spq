@@ -34,7 +34,6 @@ public class ParkingResourceTest {
 	private HttpServer server;
 	private WebTarget appTarget;
 	private Client c;
-	
 
 	@Before
 	public void setUp() throws Exception {
@@ -56,10 +55,9 @@ public class ParkingResourceTest {
 	public void testReservaVermatricula() {
 		WebTarget parkingTarget = appTarget.path("parking");
 		WebTarget reservarTarget = parkingTarget.path("reservar");
-		
+
 		Coche coche = new Coche("7777EEE", "Hyundai", "Azul", "Gorka", 5);
 
-		
 		reservarTarget.request().post(Entity.entity(coche, MediaType.APPLICATION_JSON));
 
 		boolean libre = ParkingResource.verMatriculaUsada("7777EEE");
@@ -80,7 +78,6 @@ public class ParkingResourceTest {
 		WebTarget reservarTarget = parkingTarget.path("reservar");
 		reservarTarget.request().post(Entity.entity(coche, MediaType.APPLICATION_JSON));
 
-		
 		GenericType<List<Integer>> genericType = new GenericType<List<Integer>>() {
 		};
 		final List<Integer> parkings = buscarTarget.request(MediaType.APPLICATION_JSON).get(genericType);
@@ -89,23 +86,22 @@ public class ParkingResourceTest {
 
 			respuesta = p;
 		}
-		
+
 		assertEquals(respuesta, 5);
 	}
-	
+
 	@Test
 	public void testLibera() {
 		WebTarget parkingTarget = appTarget.path("parking");
-	
+
 		WebTarget liberarTarget = parkingTarget.path("liberar");
 		WebTarget reservarTarget = parkingTarget.path("reservar");
-	
+
 		Coche coche = new Coche("7777EEE", "Hyundai", "Azul", "Gorka", 5);
 
 		reservarTarget.request().post(Entity.entity(coche, MediaType.APPLICATION_JSON));
-		
+
 		liberarTarget.request().post(Entity.entity("7777EEE", MediaType.APPLICATION_JSON));
-		
 
 		boolean libre = ParkingResource.verMatriculaUsada("7777EEE");
 
