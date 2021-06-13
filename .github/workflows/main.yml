@@ -66,7 +66,7 @@ jobs:
         run: |
           sudo /etc/init.d/mysql start
           mysql -uroot -proot < src/main/resources/database.sql
-          mvn --batch-mode --update-snapshots verify -P gui  
+          mvn --batch-mode --update-snapshots test -P gui  
         env:
           DISPLAY: ':99'
       - name: Install doxygen
