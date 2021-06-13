@@ -5,6 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Clase para testear la clase de Coche
+ * 
+ */
 public class CocheTest {
 	private Coche coche;
 
